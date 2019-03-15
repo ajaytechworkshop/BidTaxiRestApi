@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans 
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/data/mongo
+    http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd">
+    
+	<!-- MongoDb Configurations -->
+	
+   	<mongo:mongo id="mongo" host="localhost" port="27017"/>
+   	
+   	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+		<constructor-arg ref="mongo"/> 
+		<constructor-arg name="databaseName" value="test"/>
+	</bean>
+    
+    <mongo:repositories base-package="com.app.repositories"/>
+     
+     
+     <bean id="passengerController" class="com.app.controller.PassengerController">
+     		<property name="passengerService" ref="passengerService"></property>
+     </bean>
+     
+     <bean id="driverController" class="com.app.controller.DriverController">
+     	<property name="driverCrudService" ref="driverCrudService"></property>
+     </bean>
+     
+     <bean id="vehicleController" class="com.app.controller.VehicleController">
+     	<property name="vehicleService" ref="vehicleService"></property>
+     </bean>
+     
+     <bean id="tripController" class="com.app.controller.TripController">
+     	<property name="tripService" ref="tripService"></property>
+     </bean>
+     
+     
+     
+     <bean id="passengerService" class="com.app.service.PassengerService"></bean>
+     <bean id="driverCrudService" class="com.app.service.DriverCrudService"></bean>
+     <bean id="vehicleService" class="com.app.service.VehicleService"></bean>
+     <bean id="tripService" class="com.app.service.TripService"></bean>
+     
+     
+    </beans>
